@@ -48,6 +48,15 @@ public class Main {
 
 
 
+        taskManager.deleteAllTask();
+        taskManager.deleteAllEpic();
+        taskManager.deleteAllSubTask();
+
+        System.out.println("После удаления");
+        System.out.println(taskManager.getTaskAll());
+        System.out.println(taskManager.getEpicAll());
+        System.out.println(taskManager.getSubTaskAll());
+
 
 
     }

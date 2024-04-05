@@ -67,4 +67,7 @@ public class Epic extends Task {
                 '}';
     }
 
+    public void removeAllSubTask() {
+        subTasks.clear();
+    }
 }
