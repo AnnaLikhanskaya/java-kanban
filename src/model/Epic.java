@@ -4,63 +4,65 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Epic extends Task {
-    private List<SubTask> subTasks = new ArrayList<>();
+    private List<Integer> subTasksIds = new ArrayList<>();
+
 
     public Epic(String name, String description) {
         super(name, description);
     }
 
-    public Epic(String name, String description, Status status, int id) {
-        super(name, status, description, id);
+    public Epic(String name, String description, int id) {
+        super(name, description, id);
     }
 
-    public List<SubTask> getSubTasks() {
-        return subTasks;
+    public List<Integer> getSubTasksIds() {
+        return subTasksIds;
     }
 
-    public void setSubTasks(List<SubTask> subTasks) {
-        this.subTasks = subTasks;
+    public void setSubTasksIds(List<Integer> subTasksIds) {
+        this.subTasksIds = subTasksIds;
     }
 
-    public void addSubTask(SubTask subTask) {
-        subTasks.add(subTask);
+    public void addSubTaskId(Integer subTaskId) {
+        subTasksIds.add(subTaskId);
     }
 
-    public void removeSubTask(SubTask subTaskForRemove) {
-        for (int i = 0; i < subTasks.size(); i++) {
-            if (subTasks.get(i).getId() == subTaskForRemove.getId()) {
-                subTasks.remove(i);
+    public void removeSubTaskId(int id) {
+        for (int i = 0; i < subTasksIds.size(); i++) {
+            if (subTasksIds.get(i) == id) {
+                subTasksIds.remove(i);
                 return;
-
             }
         }
     }
 
-    public void updateStatus() {
-        if (calculateStatus(Status.NEW) == subTasks.size()) {
+    public void updateStatus(List<Status> statuses) {
+
+        if (calculateStatusesCount(Status.NEW,statuses) == subTasksIds.size()) {
             this.status = Status.NEW;
-        } else if (calculateStatus(Status.DONE) == subTasks.size()) {
+        } else if (calculateStatusesCount(Status.DONE, statuses) == subTasksIds.size()) {
             this.status = Status.DONE;
         } else {
             this.status = Status.IN_PROGRESS;
         }
-
     }
 
-    private int calculateStatus(Status status) {
+
+    private int calculateStatusesCount(Status checkingStatus, List<Status> statuses) {
         int count = 0;
-        for (SubTask subTask : subTasks) {
-            if (subTask.getStatus().equals(status)) {
+        for (Status status : statuses) {
+            if (status.equals(checkingStatus)) {
                 count++;
             }
         }
         return count;
     }
 
+
     @Override
     public String toString() {
         return "Epic{" +
-                "subTasks=" + subTasks +
+                "subTasks=" + subTasksIds +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +
@@ -68,6 +70,6 @@ public class Epic extends Task {
     }
 
     public void removeAllSubTask() {
-        subTasks.clear();
+        subTasksIds.clear();
     }
 }

@@ -26,12 +26,14 @@ public class Task {
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
+        this.status = Status.NEW;
     }
 
     public Task(String name, String description, int id) {
         this.name = name;
         this.description = description;
         this.id = id;
+        this.status = Status.NEW;
     }
 
     public Status getStatus() {
