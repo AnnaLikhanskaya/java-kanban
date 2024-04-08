@@ -23,7 +23,7 @@ public class Main {
         taskManager.updateTask(new Task("Изменённая задача-1", Status.DONE, " Мозги ушли погулять", task1.getId()));
         taskManager.updateSubTasks(new SubTask("Изменённая подзадача-1", "Дело близиться к финалу", Status.IN_PROGRESS, subTask1.getEpicId()));
         taskManager.updateSubTasks(new SubTask("Изменённая подзадача-3", "Показалось, что снова написала", Status.DONE, subTask3.getEpicId()));
-        taskManager.updateEpics(new Epic("Изменённый эпик-1", "Поблагодарить ревьюера!", epic1.getId()));
+        taskManager.updateEpic(new Epic("Изменённый эпик-1", "Поблагодарить ревьюера!", epic1.getId()));
         System.out.println();
         System.out.println(taskManager.getTaskAll());
         System.out.println(taskManager.getEpicAll());

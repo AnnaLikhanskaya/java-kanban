@@ -27,6 +27,7 @@ public class Epic extends Task {
         subTasksIds.add(subTaskId);
     }
 
+
     public void removeSubTaskId(int id) {
         for (int i = 0; i < subTasksIds.size(); i++) {
             if (subTasksIds.get(i) == id) {
@@ -36,27 +37,6 @@ public class Epic extends Task {
         }
     }
 
-    public void updateStatus(List<Status> statuses) {
-
-        if (calculateStatusesCount(Status.NEW,statuses) == subTasksIds.size()) {
-            this.status = Status.NEW;
-        } else if (calculateStatusesCount(Status.DONE, statuses) == subTasksIds.size()) {
-            this.status = Status.DONE;
-        } else {
-            this.status = Status.IN_PROGRESS;
-        }
-    }
-
-
-    private int calculateStatusesCount(Status checkingStatus, List<Status> statuses) {
-        int count = 0;
-        for (Status status : statuses) {
-            if (status.equals(checkingStatus)) {
-                count++;
-            }
-        }
-        return count;
-    }
 
 
     @Override

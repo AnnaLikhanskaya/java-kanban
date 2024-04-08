@@ -9,6 +9,21 @@ public class Task {
     protected Status status;
     private int id;
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Task(String name, Status status, String description, int id) {
         this.name = name;
