@@ -160,25 +160,27 @@ public class TaskManager {
 
     private Status calculateNewStatusByEpic(Epic epic) {
         List<Status> statuses = new ArrayList<>();
-        for (int subTaskId: epic.getSubTasksIds()){
+        for (int subTaskId : epic.getSubTasksIds()) {
             statuses.add(subTasksStorage.get(subTaskId).getStatus());
         }
-        if (getCountByStatus(Status.NEW,statuses) == statuses.size()) {
-            return  Status.NEW;
-        } else if (getCountByStatus(Status.DONE, statuses) == statuses.size()) {
-           return Status.DONE;
-        } else {
-           return Status.IN_PROGRESS;
-        }
-    }
 
-    private int getCountByStatus(Status checkingStatus, List<Status> statuses) {
-        int count = 0;
+        int counterNew = 0;
+        int counterDone = 0;
         for (Status status : statuses) {
-            if (status.equals(checkingStatus)) {
-                count++;
+            if (status.equals(Status.NEW)) {
+                counterNew++;
+            }
+            if (status.equals(Status.DONE)) {
+                counterDone++;
             }
         }
-        return count;
+
+        if (counterNew == statuses.size()) {
+            return Status.NEW;
+        } else if (counterDone == statuses.size()) {
+            return Status.DONE;
+        } else {
+            return Status.IN_PROGRESS;
+        }
     }
 }
