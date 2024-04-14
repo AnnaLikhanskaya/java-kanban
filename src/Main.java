@@ -2,12 +2,15 @@ import model.Epic;
 import model.Status;
 import model.SubTask;
 import model.Task;
+import service.Managers;
 import service.TaskManager;
 
 public class Main {
 
     public static void main(String[] args) {
-        TaskManager taskManager = new TaskManager();
+
+        TaskManager taskManager = Managers.getDefault();
+
         Task task1 = taskManager.createTask(new Task("Новая задача", "Попробовать справиться с финальным заданием"));
         Task task2 = taskManager.createTask(new Task("Новая задача-2", "Прочитать ТЗ и уйти в дипрессию"));
 
@@ -57,8 +60,32 @@ public class Main {
         System.out.println(taskManager.getEpicAll());
         System.out.println(taskManager.getSubTaskAll());
 
+        printAllTasks();
 
+    }
 
+    private static void printAllTasks() {
+        System.out.println("Задачи:");
+        for (Task task : Managers.getDefault().getTaskAll()) {
+            System.out.println(task);
+        }
+        System.out.println("Эпики:");
+        for (Task epic : Managers.getDefault().getEpicAll()) {
+            System.out.println(epic);
+
+            for (Task task : Managers.getDefault().getSubTasksByEpic(epic.getId())) {
+                System.out.println("--> " + task);
+            }
+        }
+        System.out.println("Подзадачи:");
+        for (Task subtask : Managers.getDefault().getSubTaskAll()) {
+            System.out.println(subtask);
+        }
+
+        System.out.println("История:");
+        for (Task task : Managers.getDefaultHistory().getHistory()) {
+            System.out.println(task);
+        }
     }
 }
 
