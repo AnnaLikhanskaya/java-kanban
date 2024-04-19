@@ -14,7 +14,7 @@ public class InMemoryTaskManager implements TaskManager {
     private final HashMap<Integer, Task> tasksStorage;
     private final HashMap<Integer, Epic> epicsStorage;
     private final HashMap<Integer, SubTask> subTasksStorage;
-//    private static final HistoryManager history = Managers.getDefaultHistory();
+    private final HistoryManager history = Managers.getDefaultHistory();
 
     private int identifier = 0;
 
@@ -119,6 +119,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateSubTasks(SubTask updatedSubTask) {
         int subTaskId = updatedSubTask.getId();
+
         if (!subTasksStorage.containsKey(subTaskId)) {
             return;
         }
