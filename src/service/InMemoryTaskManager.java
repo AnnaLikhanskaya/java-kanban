@@ -164,6 +164,7 @@ public class InMemoryTaskManager implements TaskManager {
         subTasksStorage.clear();
     }
 
+
     private Status calculateNewStatusByEpic(Epic epic) {
         List<Status> statuses = new ArrayList<>();
         for (int subTaskId : epic.getSubTasksIds()) {
@@ -193,27 +194,32 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task getTaskById(int id) {
-        if(tasksStorage.containsKey(id)){
-        Managers.getDefaultHistory().addHistory(tasksStorage.get(id));
+        if (tasksStorage.containsKey(id)) {
+            history.addHistory(tasksStorage.get(id));
         }
         return tasksStorage.get(id);
     }
 
     @Override
     public Epic getEpicById(int id) {
-        if(epicsStorage.containsKey(id)){
-            Managers.getDefaultHistory().addHistory(epicsStorage.get(id));
+        if (epicsStorage.containsKey(id)) {
+            history.addHistory(epicsStorage.get(id));
         }
         return epicsStorage.get(id);
     }
 
     @Override
     public SubTask getSubTaskById(int id) {
-        if(subTasksStorage.containsKey(id)) {
-            Managers.getDefaultHistory().addHistory(subTasksStorage.get(id));
+        if (subTasksStorage.containsKey(id)) {
+            history.addHistory(subTasksStorage.get(id));
         }
         return subTasksStorage.get(id);
     }
 
+    @Override
+    public List<Task> getHistory() {
+    return history.getHistory();
+
+    }
 
 }

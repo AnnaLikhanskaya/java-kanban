@@ -20,9 +20,6 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public List<Task> getHistory() {
-        if (!watchHistory.isEmpty()) {
-            return new ArrayList<>(watchHistory);
-        }
-        return null;
+        return new ArrayList<>(watchHistory);
     }
 }

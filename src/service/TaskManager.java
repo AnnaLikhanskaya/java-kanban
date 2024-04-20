@@ -50,4 +50,7 @@ public interface TaskManager {
 
     void deleteAllSubTask();
 
+    List<Task> getHistory();
+
+
 }
