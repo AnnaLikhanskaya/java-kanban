@@ -30,7 +30,7 @@ class InMemoryHistoryManagerTest {
 
         manager.addHistory(new Task("Придти домой", "Сдать ФЗ", 1));
 
-        manager.addHistory(new Task("Сходить в магазин", "Купить молоко",2));
+        manager.addHistory(new Task("Сходить в магазин", "Купить молоко",10));
 
         manager.addHistory(new Epic("Прочитать ТЗ", "Приступить к выполнению", 3));
         SubTask subTask1 = new SubTask("Заказать продукты на дом", "Получить заказ", 3);
