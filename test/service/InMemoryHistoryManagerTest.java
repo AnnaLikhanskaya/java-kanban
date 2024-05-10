@@ -24,18 +24,33 @@ class InMemoryHistoryManagerTest {
     @Test
     void shouldSaveHistory() {
         InMemoryHistoryManager manager = new InMemoryHistoryManager();
+        System.out.print("start test. size:");
+        System.out.println(manager.getHistory().size());
         manager.addHistory(new Task("Придти домой", "Сдать ФЗ", 1));
+        System.out.print("1add task. size:");
+        System.out.println(manager.getHistory().size());
         manager.addHistory(new Task("Сходить в магазин", "Купить молоко",2));
+        System.out.print("2add task. size:");
+        System.out.println(manager.getHistory().size());
 
         manager.addHistory(new Epic("Прочитать ТЗ", "Приступить к выполнению", 3));
+        System.out.print("3add task. size:");
+        System.out.println(manager.getHistory().size());
         SubTask subTask1 = new SubTask("Заказать продукты на дом", "Получить заказ", 3);
         subTask1.setId(4);
         manager.addHistory(subTask1);
+        System.out.print("4add task. size:");
+        System.out.println(manager.getHistory().size());
 
         manager.addHistory(new Epic("Приготовить ужин", "Поужинать", 5));
+        System.out.print("5add task. size:");
+        System.out.println(manager.getHistory().size());
         SubTask subTask2 = new SubTask("Заказать продукты на дом", "Получить заказ", 5);
         subTask1.setId(7);
         manager.addHistory(subTask2);
+        System.out.print("6add task. size:");
+        System.out.println(manager.getHistory().size());
+
         assertEquals(manager.getHistory().size(), 6, "История не сохранена");
     }
 
