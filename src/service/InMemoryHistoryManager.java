@@ -15,7 +15,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void addHistory(Task task) {
-        System.out.println("Таск"+task.toString());
+        System.out.println("Таск" + task.toString());
         System.out.println("add his call. size: " + getHistory());
         if (task != null) {
             remove(task.getId());
