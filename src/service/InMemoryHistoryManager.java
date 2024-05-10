@@ -15,11 +15,16 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void addHistory(Task task) {
+        System.out.println("add his call. size: "+getHistory());
         if (task != null) {
             remove(task.getId());
+            System.out.println("remove old node. size: "+getHistory());
             linkLast(task);
+            System.out.println("write new node. size: "+getHistory());
             watchHistory.put(task.getId(), last);
+            System.out.println("add to hash map. size: "+getHistory());
         }
+        System.out.println("add his call end. size: "+getHistory());
     }
 
     @Override
