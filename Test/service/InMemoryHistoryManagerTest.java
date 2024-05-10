@@ -24,15 +24,18 @@ class InMemoryHistoryManagerTest {
     @Test
     void shouldSaveHistory() {
         InMemoryHistoryManager manager = new InMemoryHistoryManager();
-        manager.addHistory(new Task("Придти домой", "Сдать ФЗ"));
-        manager.addHistory(new Task("Сходить в магазин", "Купить молоко"));
+        manager.addHistory(new Task("Придти домой", "Сдать ФЗ", 1));
+        manager.addHistory(new Task("Сходить в магазин", "Купить молоко",2));
 
-        manager.addHistory(new Epic("Прочитать ТЗ", "Приступить к выполнению", 1));
-        manager.addHistory(new SubTask("Заказать продукты на дом", "Получить заказ", 1));
+        manager.addHistory(new Epic("Прочитать ТЗ", "Приступить к выполнению", 3));
+        SubTask subTask1 = new SubTask("Заказать продукты на дом", "Получить заказ", 3);
+        subTask1.setId(4);
+        manager.addHistory(subTask1);
 
-        manager.addHistory(new Epic("Приготовить ужин", "Поужинать", 2));
-        manager.addHistory(new SubTask("Вернуться к обучению", "Приступить к написанию тестов", 2));
-
+        manager.addHistory(new Epic("Приготовить ужин", "Поужинать", 5));
+        SubTask subTask2 = new SubTask("Заказать продукты на дом", "Получить заказ", 5);
+        subTask1.setId(6);
+        manager.addHistory(subTask2);
         assertEquals(manager.getHistory().size(), 6, "История не сохранена");
 
     }
