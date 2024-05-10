@@ -19,6 +19,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         System.out.println("add his call. size: " + getHistory());
         if (task != null) {
             System.out.println("Таск ID " + task.getId());
+            System.out.println("Node в мапе" + watchHistory.get(task.getId()));
             remove(task.getId());
             System.out.println("remove old node. size: " + getHistory());
             linkLast(task);
