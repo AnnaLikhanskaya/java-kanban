@@ -37,7 +37,6 @@ class InMemoryHistoryManagerTest {
         subTask1.setId(7);
         manager.addHistory(subTask2);
         assertEquals(manager.getHistory().size(), 6, "История не сохранена");
-
     }
 
     @DisplayName("Проверяет добавление в историю")
