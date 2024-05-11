@@ -34,8 +34,8 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     private void linkLast(Task task) {
-        Node<Task> lastTask = last; // null
-        Node<Task> buffer = new Node<>(lastTask, task, null);
+        final Node<Task> lastTask = last;
+        final Node<Task> buffer = new Node<>(lastTask, task, null);
         last = buffer;
         if (lastTask == null) {
             first = buffer;
