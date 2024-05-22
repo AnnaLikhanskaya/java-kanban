@@ -46,6 +46,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void deleteTaskById(int id) {
         tasksStorage.remove(id);
+        history.remove(id);
     }
 
     @Override
@@ -53,8 +54,10 @@ public class InMemoryTaskManager implements TaskManager {
         Epic epic = epicsStorage.get(id);
         for (Integer subTaskId : epic.getSubTasksIds()) {
             subTasksStorage.remove(subTaskId);
+            history.remove(id);
         }
         epicsStorage.remove(id);
+        history.remove(id);
     }
 
     @Override
@@ -67,7 +70,7 @@ public class InMemoryTaskManager implements TaskManager {
         epic.removeSubTaskId(id);
         epic.setStatus(calculateNewStatusByEpic(epic));
         subTasksStorage.remove(id);
-
+        history.remove(id);
     }
 
 
@@ -145,18 +148,31 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteAllTask() {
+        for (Task task : tasksStorage.values()) {
+            history.remove(task.getId());
+        }
         tasksStorage.clear();
     }
 
     @Override
     public void deleteAllEpic() {
-        epicsStorage.clear();
-        subTasksStorage.clear();
-
+        if (!epicsStorage.isEmpty()) {
+            for (Epic epic : epicsStorage.values()) {
+                history.remove(epic.getId());
+            }
+            epicsStorage.clear();
+            for (SubTask subTask : subTasksStorage.values()) {
+                history.remove(subTask.getId());
+            }
+            subTasksStorage.clear();
+        }
     }
 
     @Override
     public void deleteAllSubTask() {
+        for (SubTask subTask : subTasksStorage.values()) {
+            history.remove(subTask.getId());
+        }
         for (Epic epic : epicsStorage.values()) {
             epic.removeAllSubTask();
             epic.setStatus(calculateNewStatusByEpic(epic));
@@ -218,7 +234,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public List<Task> getHistory() {
-    return history.getHistory();
+        return history.getHistory();
 
     }
 
