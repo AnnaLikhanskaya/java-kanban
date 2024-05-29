@@ -16,7 +16,7 @@ public class InMemoryTaskManager implements TaskManager {
     protected final HashMap<Integer, SubTask> subTasksStorage;
     private final HistoryManager history = Managers.getDefaultHistory();
 
-    protected static Integer identifier = 0;
+    protected Integer identifier = 0;
 
     public InMemoryTaskManager() {
         this.epicsStorage = new HashMap<>();
@@ -181,7 +181,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
 
-    private Status calculateNewStatusByEpic(Epic epic) {
+    protected Status calculateNewStatusByEpic(Epic epic) {
         List<Status> statuses = new ArrayList<>();
         for (int subTaskId : epic.getSubTasksIds()) {
             statuses.add(subTasksStorage.get(subTaskId).getStatus());
