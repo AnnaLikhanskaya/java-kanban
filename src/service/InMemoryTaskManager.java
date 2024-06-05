@@ -11,12 +11,12 @@ import java.util.List;
 
 
 public class InMemoryTaskManager implements TaskManager {
-    private final HashMap<Integer, Task> tasksStorage;
-    private final HashMap<Integer, Epic> epicsStorage;
-    private final HashMap<Integer, SubTask> subTasksStorage;
+    protected final HashMap<Integer, Task> tasksStorage;
+    protected final HashMap<Integer, Epic> epicsStorage;
+    protected final HashMap<Integer, SubTask> subTasksStorage;
     private final HistoryManager history = Managers.getDefaultHistory();
 
-    private int identifier = 0;
+    protected Integer identifier = 0;
 
     public InMemoryTaskManager() {
         this.epicsStorage = new HashMap<>();
@@ -181,7 +181,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
 
-    private Status calculateNewStatusByEpic(Epic epic) {
+    protected Status calculateNewStatusByEpic(Epic epic) {
         List<Status> statuses = new ArrayList<>();
         for (int subTaskId : epic.getSubTasksIds()) {
             statuses.add(subTasksStorage.get(subTaskId).getStatus());
