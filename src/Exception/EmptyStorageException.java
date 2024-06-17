@@ -1,4 +1,4 @@
-package Exceptions;
+package Exception;
 
 public class EmptyStorageException extends RuntimeException {
     public EmptyStorageException(String message) {
