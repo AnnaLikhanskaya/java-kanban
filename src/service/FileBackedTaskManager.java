@@ -27,7 +27,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         TaskManager taskManager = FileBackedTaskManager.loadFromFile(new File("resources/Tasks.csv"));
         LocalDateTime startTime = LocalDateTime.of(2024, 1, 1, 1, 0);
 
-
         Task task1 = taskManager.createTask(new Task("Новая задача",
                 "Попробовать справиться с финальным заданием", 10, startTime));
         Task task2 = taskManager.createTask(new Task("Новая задача-2",
@@ -44,29 +43,24 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         SubTask subTask3 = taskManager.createSubTask(new SubTask("Новая подзадача-3", "Написала но снова показалось",
                 25, startTime, Status.NEW, epic1.getId()));
 
-
         Task updatingTask = new Task("Изенённая задача-1", " Мозги ушли погулять", 25, startTime);
         updatingTask.setId(task1.getId());
         taskManager.updateTask(updatingTask);
-
 
         SubTask updatingSubTask1 = new SubTask("Изменённая подзадача-1", "Дело близится к финалу",
                 25, startTime, Status.IN_PROGRESS, subTask1.getEpicId());
         updatingSubTask1.setId(subTask1.getId());
         taskManager.updateSubTasks(updatingSubTask1);
 
-
         SubTask updatingSubTask3 = new SubTask("Изменённая подзадача-3", "Показалось что снова написала",
                 25, startTime, Status.DONE, subTask3.getEpicId());
         updatingSubTask3.setId(subTask3.getId());
         taskManager.updateSubTasks(updatingSubTask3);
 
-
         Epic updatingEpic = (new Epic("Изменённый эпик-1",
                 "Поблагодарить ревьюера!"));
         updatingEpic.setId(epic1.getId());
         taskManager.updateEpic(updatingEpic);
-
 
     }
 

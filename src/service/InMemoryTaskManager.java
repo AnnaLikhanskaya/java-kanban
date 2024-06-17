@@ -27,7 +27,6 @@ public class InMemoryTaskManager implements TaskManager {
         this.subTasksStorage = new HashMap<>();
         this.tasksStorage = new HashMap<>();
         this.sortedStorage = new TreeSet<>(Comparator.comparing(Task::getStartTime));
-
     }
 
     private int generateId() {
@@ -211,7 +210,6 @@ public class InMemoryTaskManager implements TaskManager {
         subTasksStorage.clear();
     }
 
-
     @Override
     public void deleteAllSubTask() {
         subTasksStorage.values().stream()
@@ -292,7 +290,6 @@ public class InMemoryTaskManager implements TaskManager {
     private boolean isDateTimeBetween(LocalDateTime checking, Task task) {
         return checking.isAfter(task.getStartTime()) && checking.isBefore(task.getStartTime());
     }
-
 
     @Override
     public Task getTaskById(int id) {

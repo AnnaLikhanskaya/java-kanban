@@ -64,7 +64,6 @@ class InMemoryHistoryManagerTest {
 
         assertNotNull(tasks1, "История пустая");
         assertEquals(tasks1, tasks2, "Списки не равны");
-
     }
 
     @DisplayName("Проверяет удаление истории")
@@ -94,5 +93,4 @@ class InMemoryHistoryManagerTest {
 
         assertFalse(tasks1.isEmpty());
     }
-
 }

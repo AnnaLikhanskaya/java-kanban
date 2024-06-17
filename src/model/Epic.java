@@ -11,12 +11,13 @@ public class Epic extends Task {
 
 
     public Epic(String name, String description) {
-        super(name, description,0L,  LocalDateTime.of(2024, 1, 1, 1, 0),Status.NEW);
+        super(name, description, 0L, LocalDateTime.of(2024, 1, 1, 1, 0), Status.NEW);
     }
 
     public List<Integer> getSubTasksIds() {
         return subTasksIds;
     }
+
     @Override
     public LocalDateTime getEndTime() {
         return endTime;
@@ -36,8 +37,6 @@ public class Epic extends Task {
     }
 
 
-
-
     public void removeSubTaskId(int id) {
         for (int i = 0; i < subTasksIds.size(); i++) {
             if (subTasksIds.get(i) == id) {
@@ -46,7 +45,6 @@ public class Epic extends Task {
             }
         }
     }
-
 
     @Override
     public String toString() {

@@ -184,6 +184,5 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 () -> assertNotEquals(unsortedTasks, sortedTasks, "very strange things")
         );
     }
-
 }
 

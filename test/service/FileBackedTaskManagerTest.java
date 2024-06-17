@@ -32,7 +32,6 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
         }
     }
 
-
     @DisplayName("Должен создать Task из файла")
     @Test
     public void shouldCreateTaskFromFileTest() throws IOException {
@@ -44,7 +43,6 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
         String fileContents = Files.readString(Path.of(file.getPath()), StandardCharsets.UTF_8);
         String[] line = fileContents.split("\n");
         assertEquals(line.length, 2);
-
     }
 
     @DisplayName("Должен создать Epic из файла")
@@ -54,7 +52,6 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
         String fileContents = Files.readString(Path.of(file.getPath()), StandardCharsets.UTF_8);
         String[] line = fileContents.split("\n");
         assertEquals(line.length, 2);
-
     }
 
     @DisplayName("Должен создать SubTask из файла")
@@ -70,7 +67,6 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
         String fileContents = Files.readString(Path.of(file.getPath()), StandardCharsets.UTF_8);
         String[] line = fileContents.split("\n");
         assertEquals(line.length, 3);
-
     }
 
     @DisplayName("Должен обновить Task из файла")
@@ -113,7 +109,8 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
     @Test
     public void shouldUpdateSubTaskFromFile() throws IOException {
         Epic epic = taskManager.createEpic(new Epic("Новый эпик", "Смириться и начать думать"));
-        SubTask subTask = taskManager.createSubTask(new SubTask("Новая подзадача-1", "Начать писать код", 10,
+        SubTask subTask = taskManager.createSubTask(new SubTask("Новая подзадача-1",
+                "Начать писать код", 10,
                 LocalDateTime.of(2022, 12, 11, 10, 9),
                 Status.IN_PROGRESS,
                 epic.getId()));
@@ -142,7 +139,6 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
         String fileContents = Files.readString(Path.of(file.getPath()), StandardCharsets.UTF_8);
         String[] line = fileContents.split("\n");
         assertEquals(line.length, 1);
-
     }
 
     @DisplayName("Должен удалить Epic по Id из файла")
@@ -153,7 +149,6 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
         String fileContents = Files.readString(Path.of(file.getPath()), StandardCharsets.UTF_8);
         String[] line = fileContents.split("\n");
         assertEquals(line.length, 1);
-
     }
 
     @DisplayName("Должен удалить SubTask по Id из файла")
@@ -186,7 +181,6 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
         String fileContents = Files.readString(Path.of(file.getPath()), StandardCharsets.UTF_8);
         String[] line = fileContents.split("\n");
         assertEquals(line.length, 1);
-
     }
 
     @DisplayName("Должен удалить все Epic из файла")
@@ -203,7 +197,6 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
         String fileContents = Files.readString(Path.of(file.getPath()), StandardCharsets.UTF_8);
         String[] line = fileContents.split("\n");
         assertEquals(line.length, 1);
-
     }
 
     @DisplayName("Должен удалить все SubTask из файла")
