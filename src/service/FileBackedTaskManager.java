@@ -21,7 +21,7 @@ import java.util.List;
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private File file;
-    private final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
 
     public static void main(String[] args) {
         TaskManager taskManager = FileBackedTaskManager.loadFromFile(new File("resources/Tasks.csv"));
@@ -124,7 +124,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         dataTask[3] = task.getDescription();
         dataTask[4] = String.valueOf(task.getDuration().toMinutes());
         if (task.getStartTime() != null) {
-            dataTask[5] = task.getStartTime().format(DATE_TIME_FORMATTER);
+            dataTask[5] = task.getStartTime().format(dateTimeFormatter);
         } else {
             dataTask[5] = "NULL";
         }
@@ -147,7 +147,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         if (taskData[1].equals(Tasks.TASK.getTaskType())) {
             LocalDateTime dateBuffer;
             if (!taskData[5].equals("NULL")) {
-                dateBuffer = LocalDateTime.parse(taskData[5], DATE_TIME_FORMATTER);
+                dateBuffer = LocalDateTime.parse(taskData[5], dateTimeFormatter);
             } else {
                 dateBuffer = null;
             }
@@ -170,7 +170,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                     taskData[2],
                     taskData[3],
                     Integer.parseInt(taskData[4]),
-                    LocalDateTime.parse(taskData[5], DATE_TIME_FORMATTER),
+                    LocalDateTime.parse(taskData[5], dateTimeFormatter),
                     Status.valueOf(taskData[6]),
                     Integer.parseInt(taskData[7]));
             subTask.setId(Integer.parseInt(taskData[0]));
