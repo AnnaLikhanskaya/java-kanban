@@ -1,8 +1,8 @@
 package service;
 
-import Exception.DataNotFoundException;
-import Exception.EmptyStorageException;
-import Exception.IntersectionsOfTaskIntervalsException;
+import exceptions.DataNotFoundException;
+import exceptions.EmptyStorageException;
+import exceptions.IntersectionsOfTaskIntervalsException;
 import model.Epic;
 import model.Status;
 import model.SubTask;
