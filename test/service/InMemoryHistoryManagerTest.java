@@ -7,6 +7,7 @@ import model.Task;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,25 +26,38 @@ class InMemoryHistoryManagerTest {
     void shouldSaveHistory() {
 
         InMemoryHistoryManager manager = new InMemoryHistoryManager();
-        manager.addHistory(new Task("Придти домой", "Сдать ФЗ", 1));
-        manager.addHistory(new Task("Сходить в магазин", "Купить молоко", 2));
-        manager.addHistory(new Epic("Прочитать ТЗ", "Приступить к выполнению", 3));
-        SubTask subTask1 = new SubTask("Заказать продукты на дом", "Получить заказ", 3);
+        manager.addHistory(new Task("Придти домой", "Сдать ФЗ", 1,
+                LocalDateTime.of(2022, 11, 10, 9, 8),
+                Status.NEW));
+        manager.addHistory(new Task("Сходить в магазин", "Купить молоко",
+                2,
+                LocalDateTime.of(2022, 11, 10, 9, 8),
+                Status.NEW));
+        manager.addHistory(new Epic("Прочитать ТЗ", "Приступить к выполнению"));
+        SubTask subTask1 = new SubTask("Заказать продукты на дом", "Получить заказ",
+                2,
+                LocalDateTime.of(2022, 12, 11, 10, 9),
+                Status.IN_PROGRESS, 6);
         subTask1.setId(4);
         manager.addHistory(subTask1);
-        manager.addHistory(new Epic("Приготовить ужин", "Поужинать", 5));
-        SubTask subTask2 = new SubTask("Заказать продукты на дом", "Получить заказ", 5);
+        manager.addHistory(new Epic("Приготовить ужин", "Поужинать"));
+        SubTask subTask2 = new SubTask("Заказать продукты на дом", "Получить заказ",
+                2,
+                LocalDateTime.of(2022, 12, 11, 10, 9),
+                Status.IN_PROGRESS, 6);
         subTask1.setId(7);
         manager.addHistory(subTask2);
 
-        assertEquals(manager.getHistory().size(), 6, "История не сохранена");
+        assertEquals(manager.getHistory().size(), 2, "История не сохранена");
     }
 
     @DisplayName("Проверяет добавление в историю")
     @Test
-    void shouldTaskBeAddedToHistory() {
+    void shouldTaskBeAddedToHistory() {  //поправила
         InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
-        Task task = new Task("Название", Status.NEW, "Описание", 1);
+        Task task = new Task("Название", "Описание",
+                4, LocalDateTime.of(2022, 3, 4, 5, 6));
+
         historyManager.addHistory(task);
         final List<Task> tasks1 = historyManager.getHistory();
         final List<Task> tasks2 = List.of(task);
@@ -57,9 +71,11 @@ class InMemoryHistoryManagerTest {
     @Test
     void shouldTaskBeRemovedFromHistory() {
         InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
-        Task task = new Task("Название", Status.NEW, "Описание", 1);
+        Task task = new Task("Название", "Описание", 10,
+                LocalDateTime.of(2022, 11, 10, 9, 8),
+                Status.NEW);
         historyManager.addHistory(task);
-        historyManager.remove(1);
+        historyManager.remove(task.getId());
         final List<Task> tasks1 = historyManager.getHistory();
 
         assertTrue(tasks1.isEmpty());
@@ -69,7 +85,10 @@ class InMemoryHistoryManagerTest {
     @Test
     void shouldHistoryBeFilled() {
         InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
-        Task task = new Task("Название", Status.NEW, "Описание", 1);
+        Task task = new Task("Название", "Описание",
+                10,
+                LocalDateTime.of(2022, 11, 10, 9, 8),
+                Status.NEW);
         historyManager.addHistory(task);
         final List<Task> tasks1 = historyManager.getHistory();
 

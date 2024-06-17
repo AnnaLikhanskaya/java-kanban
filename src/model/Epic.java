@@ -1,35 +1,41 @@
 package model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Epic extends Task {
     private List<Integer> subTasksIds = new ArrayList<>();
 
-    public Epic(String name, Status status, String description, int id) {
-        super(name, status, description, id);
-    }
+    private LocalDateTime endTime;
 
 
     public Epic(String name, String description) {
-        super(name, description);
-    }
-
-    public Epic(String name, String description, int id) {
-        super(name, description, id);
+        super(name, description,0L,  LocalDateTime.of(2024, 1, 1, 1, 0),Status.NEW);
     }
 
     public List<Integer> getSubTasksIds() {
         return subTasksIds;
     }
-
-    public void setSubTasksIds(List<Integer> subTasksIds) {
-        this.subTasksIds = subTasksIds;
+    @Override
+    public LocalDateTime getEndTime() {
+        return endTime;
     }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public List<Integer> getSubTaskIds() {
+        return subTasksIds;
+    }
+
 
     public void addSubTaskId(Integer subTaskId) {
         subTasksIds.add(subTaskId);
     }
+
+
 
 
     public void removeSubTaskId(int id) {

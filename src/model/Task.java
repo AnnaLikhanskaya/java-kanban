@@ -1,6 +1,8 @@
 package model;
 
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
@@ -8,6 +10,9 @@ public class Task {
     protected String description;
     protected Status status;
     private int id;
+    protected Duration duration;
+    protected LocalDateTime startTime;
+
 
     public void setName(String name) {
         this.name = name;
@@ -25,31 +30,39 @@ public class Task {
         this.description = description;
     }
 
-    public Task(String name, Status status, String description, int id) {
-        this.name = name;
-        this.description = description;
-        this.status = status;
-        this.id = id;
-    }
-
-    public Task(String name, Status status, String description) {
-        this.name = name;
-        this.description = description;
+    public Task(String name, String description, long duration, LocalDateTime startTime, Status status) {
+        this(name, description, duration, startTime);
         this.status = status;
     }
 
-    public Task(String name, String description) {
+    public Task(String name, String description, long duration, LocalDateTime startTime) {
         this.name = name;
         this.description = description;
+        this.duration = Duration.ofMinutes(duration);
+        this.startTime = startTime;
         this.status = Status.NEW;
     }
 
-    public Task(String name, String description, int id) {
-        this.name = name;
-        this.description = description;
-        this.id = id;
-        this.status = Status.NEW;
+    public LocalDateTime getEndTime() {
+        return startTime.plusMinutes(duration.toMinutes());
     }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
 
     public Status getStatus() {
         return status;

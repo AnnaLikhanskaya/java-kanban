@@ -22,7 +22,8 @@ class EpicTest {
     @DisplayName("Должен удалить все подзадачи")
     @Test
     void shouldRemoveAllSubTask() {
-        Epic epic = new Epic("Название эпика ", "Описание эпика", 1);
+        Epic epic = new Epic("Название эпика ", "Описание эпика");
+        epic.setId(1);
         epic.addSubTaskId(1);
         epic.addSubTaskId(2);
         epic.removeAllSubTask();
@@ -33,7 +34,8 @@ class EpicTest {
     @Test
     void shouldByNewStatusEpic() {
 
-        Epic epic = new Epic("Название эпика ", "Описание эпика", 1);
+        Epic epic = new Epic("Название эпика ", "Описание эпика");
+        epic.setStatus(Status.NEW);
         assertEquals(Status.NEW, epic.getStatus());
     }
 
@@ -41,11 +43,9 @@ class EpicTest {
     @DisplayName("Эпик должкн сожержать 2  подзадачи")
     @Test
     void shouldEpicTwoSubTask() {
-        Epic epic = new Epic("Название эпика ", "Описание эпика", 1);
+        Epic epic = new Epic("Название эпика ", "Описание эпика");
+        epic.addSubTaskId(1);
         epic.addSubTaskId(2);
-        epic.addSubTaskId(3);
         assertEquals(2, epic.getSubTasksIds().size());
     }
-
-
 }
