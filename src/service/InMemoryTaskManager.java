@@ -273,8 +273,8 @@ public class InMemoryTaskManager implements TaskManager {
 
     protected void checkIntersections(Task checkingTask) {
         long intersectionsCount = sortedStorage.stream()
-                .filter(task ->
-                {
+                .filter(task -> {
+
                     boolean isInterceptStart = isDateTimeBetween(checkingTask.getStartTime(), task)
                             && isDateTimeBetween(task.getStartTime(), checkingTask);
                     boolean isInterceptEnd = isDateTimeBetween(checkingTask.getEndTime(), task)
