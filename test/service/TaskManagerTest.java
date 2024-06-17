@@ -157,10 +157,14 @@ abstract class TaskManagerTest<T extends TaskManager> {
         final List<Task> emptyTasks = taskManager.getPrioritizedTasks();
         Epic epicWithSubtask = new Epic("Название", "Описание");
         int epicId = taskManager.createEpic(epicWithSubtask).getId();
-        SubTask subtask2 = new SubTask("a", "b", 2, LocalDateTime.of(2020, 1, 1, 1, 0), Status.NEW, epicId);
-        SubTask subtask3 = new SubTask("a", "b", 3, LocalDateTime.of(2020, 1, 1, 3, 0), Status.IN_PROGRESS, epicId);
-        SubTask subtask1 = new SubTask("a", "b", 4, LocalDateTime.of(2020, 1, 1, 2, 0), Status.NEW, epicId);
-        Task task = new Task("Test addNewTask", "Test addNewTask description", 1, LocalDateTime.of(2021, 1, 1, 0, 0), Status.NEW);
+        SubTask subtask2 = new SubTask("a", "b", 2,
+                LocalDateTime.of(2020, 1, 1, 1, 0), Status.NEW, epicId);
+        SubTask subtask3 = new SubTask("a", "b", 3,
+                LocalDateTime.of(2020, 1, 1, 3, 0), Status.IN_PROGRESS, epicId);
+        SubTask subtask1 = new SubTask("a", "b", 4,
+                LocalDateTime.of(2020, 1, 1, 2, 0), Status.NEW, epicId);
+        Task task = new Task("Test addNewTask", "Test addNewTask description",
+                1, LocalDateTime.of(2021, 1, 1, 0, 0), Status.NEW);
 
         taskManager.createTask(task);
         taskManager.createEpic(epicWithSubtask);

@@ -67,13 +67,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         updatingEpic.setId(epic1.getId());
         taskManager.updateEpic(updatingEpic);
 
-//        taskManager.deleteTaskById(task2.getId());
-//        taskManager.deleteSubTaskById(subTask2.getId());
-//        taskManager.deleteEpicById(epic1.getId());
-//
-//        taskManager.deleteAllTask();
-//        taskManager.deleteAllEpic();
-//        taskManager.deleteAllSubTask();
 
     }
 

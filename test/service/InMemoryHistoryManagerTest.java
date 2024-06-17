@@ -53,7 +53,7 @@ class InMemoryHistoryManagerTest {
 
     @DisplayName("Проверяет добавление в историю")
     @Test
-    void shouldTaskBeAddedToHistory() {  //поправила
+    void shouldTaskBeAddedToHistory() {
         InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
         Task task = new Task("Название", "Описание",
                 4, LocalDateTime.of(2022, 3, 4, 5, 6));

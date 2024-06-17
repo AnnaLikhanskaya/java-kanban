@@ -35,7 +35,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
 
     @DisplayName("Должен создать Task из файла")
     @Test
-    public void shouldCreateTaskFromFileTest() throws IOException {   //исправила тест
+    public void shouldCreateTaskFromFileTest() throws IOException {
         taskManager.createTask(new Task("Новая задача",
                 "Попробовать справиться с финальным заданием",
                 10,
@@ -59,7 +59,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
 
     @DisplayName("Должен создать SubTask из файла")
     @Test
-    public void shouldCreateSubTaskFromFileTest() throws IOException {  //не получается
+    public void shouldCreateSubTaskFromFileTest() throws IOException {
         Epic epic = taskManager.createEpic(new Epic("Новый эпик", "Смириться и начать думать"));
         taskManager.createSubTask(new SubTask("Новая подзадача-1", "Начать писать код",
                 12,
@@ -134,7 +134,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
 
     @DisplayName("Должен удалить Task по Id из файла")
     @Test
-    public void shouldDeleteTaskByIdFromFileTest() throws IOException { //исправила
+    public void shouldDeleteTaskByIdFromFileTest() throws IOException {
         Task task = taskManager.createTask(new Task("Новая задача", "Попробовать справиться с финальным заданием",
                 10,
                 LocalDateTime.of(2022, 10, 11, 18, 17)));
@@ -173,7 +173,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
 
     @DisplayName("Должен удалить все Task из файла")
     @Test
-    public void shouldDeleteAllTaskFromFileTest() throws IOException {  //исправила
+    public void shouldDeleteAllTaskFromFileTest() throws IOException {
         taskManager.createTask(new Task("Новая задача", "Попробовать справиться с финальным заданием",
                 10,
                 LocalDateTime.of(2022, 11, 10, 9, 8),
