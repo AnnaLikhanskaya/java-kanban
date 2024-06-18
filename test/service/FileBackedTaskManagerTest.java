@@ -101,7 +101,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
         assertEquals(line.length, 2);
 
         String result = "id,type,name,description,duration,startTime,status,epic\n"
-                + epic.getId() + ",EPIC,Новый эпик,Смириться и начать думать,0,01:00 01.01.2024,NEW,\n";
+                + epic.getId() + ",EPIC,Новый эпик,Смириться и начать думать,0,NULL,NEW,\n";
         assertEquals(fileContents, result);
     }
 
