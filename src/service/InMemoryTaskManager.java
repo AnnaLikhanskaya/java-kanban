@@ -89,8 +89,8 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task createTask(Task task) {
-        task.setId(generateId());
         checkIntersections(task);
+        task.setId(generateId());
         tasksStorage.put(task.getId(), task);
         if (task.getStartTime() != null) {
             sortedStorage.add(task);
@@ -113,8 +113,8 @@ public class InMemoryTaskManager implements TaskManager {
             throw new DataNotFoundException("Не найден эпик");
         }
         int newId = generateId();
-        subTask.setId(newId);
         checkIntersections(subTask);
+        subTask.setId(newId);
         subTasksStorage.put(newId, subTask);
         if (subTask.getStartTime() != null) {
             sortedStorage.add(subTask);
@@ -130,7 +130,7 @@ public class InMemoryTaskManager implements TaskManager {
         if (!tasksStorage.containsKey(task.getId())) {
             throw new DataNotFoundException("Таска с Id " + task.getId() + " не найдена");
         }
-        Task savedTask = tasksStorage.get(task.getId());
+        final Task savedTask = tasksStorage.get(task.getId());
         sortedStorage.remove(savedTask);
         checkIntersections(task);
         tasksStorage.put(task.getId(), task);
@@ -162,7 +162,7 @@ public class InMemoryTaskManager implements TaskManager {
             return;
         }
         Epic epic = epicsStorage.get(epicId);
-        SubTask savedSubTask = subTasksStorage.get(subTaskId);
+        final SubTask savedSubTask = subTasksStorage.get(subTaskId);
         sortedStorage.remove(savedSubTask);
         checkIntersections(updatedSubTask);
         if (updatedSubTask.getStartTime() != null) {
@@ -288,7 +288,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     private boolean isDateTimeBetween(LocalDateTime checking, Task task) {
-        return checking.isAfter(task.getStartTime()) && checking.isBefore(task.getStartTime());
+        return checking.isAfter(task.getStartTime()) && checking.isBefore(task.getEndTime());
     }
 
     @Override

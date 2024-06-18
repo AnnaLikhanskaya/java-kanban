@@ -11,7 +11,7 @@ public class Epic extends Task {
 
 
     public Epic(String name, String description) {
-        super(name, description, 0L, LocalDateTime.of(2024, 1, 1, 1, 0), Status.NEW);
+        super(name, description, 0L, null, Status.NEW);
     }
 
     public List<Integer> getSubTasksIds() {
