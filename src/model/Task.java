@@ -1,6 +1,8 @@
 package model;
 
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
@@ -8,6 +10,9 @@ public class Task {
     protected String description;
     protected Status status;
     private int id;
+    protected Duration duration;
+    protected LocalDateTime startTime;
+
 
     public void setName(String name) {
         this.name = name;
@@ -25,31 +30,43 @@ public class Task {
         this.description = description;
     }
 
-    public Task(String name, Status status, String description, int id) {
-        this.name = name;
-        this.description = description;
-        this.status = status;
-        this.id = id;
-    }
-
-    public Task(String name, Status status, String description) {
-        this.name = name;
-        this.description = description;
+    public Task(String name, String description, long duration, LocalDateTime startTime, Status status) {
+        this(name, description, duration, startTime);
         this.status = status;
     }
 
-    public Task(String name, String description) {
+    public Task(String name, String description, long duration, LocalDateTime startTime) {
         this.name = name;
         this.description = description;
+        this.duration = Duration.ofMinutes(duration);
+        this.startTime = startTime;
         this.status = Status.NEW;
     }
 
-    public Task(String name, String description, int id) {
-        this.name = name;
-        this.description = description;
-        this.id = id;
-        this.status = Status.NEW;
+    public LocalDateTime getEndTime() {
+        if (startTime == null) {
+            return null;
+        } else {
+            return startTime.plusMinutes(duration.toMinutes());
+        }
     }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
 
     public Status getStatus() {
         return status;
@@ -69,28 +86,30 @@ public class Task {
 
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return id == task.id && Objects.equals(name, task.name) && Objects.equals(description, task.description) && status == task.status && Objects.equals(duration, task.duration) && Objects.equals(startTime, task.startTime);
+    }
+
+    @Override
     public int hashCode() {
-        return Objects.hash(name, status, id, description);
+        return Objects.hash(name, description, status, id, duration, startTime);
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        Task task = (Task) object;
-        return id == task.id && Objects.equals(name, task.name) && Objects.equals(description, task.description) && status == task.status;
-    }
-
-    @Override
-
     public String toString() {
         return "Task{" +
-                "id=" + id +
-                ", name=" + name + '\'' +
-                ", staus='" + status + '\'' +
+                "name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", status=" + status +
+                ", id=" + id +
+                ", duration=" + duration +
+                ", startTime=" + startTime +
                 '}';
     }
+
 }
 
 
