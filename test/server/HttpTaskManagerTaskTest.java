@@ -319,5 +319,4 @@ public class HttpTaskManagerTaskTest {
         boolean isTaskSecond = listFromResponse.get(1).getId() == taskId;
         assertTrue(isTaskSecond && isSubtaskFirst, "Неправильный порядок");
     }
-
 }
