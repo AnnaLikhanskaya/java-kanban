@@ -2,7 +2,7 @@ package handler;
 
 import model.Task;
 
-import static httpServer.HttpTaskServer.taskManager;
+import static http_server.HttpTaskServer.taskManager;
 
 
 public class HistoryHandler extends BaseHttpHandler<Task> {
