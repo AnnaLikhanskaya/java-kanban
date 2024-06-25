@@ -7,8 +7,8 @@ import model.Epic;
 
 import java.io.IOException;
 
-import static http_server.HttpTaskServer.gson;
-import static http_server.HttpTaskServer.taskManager;
+import static httpserver.HttpTaskServer.gson;
+import static httpserver.HttpTaskServer.taskManager;
 
 
 public class EpicHandler extends BaseHttpHandler<Epic> {

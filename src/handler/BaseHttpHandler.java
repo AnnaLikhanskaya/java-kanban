@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static http_server.HttpTaskServer.gson;
+import static httpserver.HttpTaskServer.gson;
 
 public abstract class BaseHttpHandler<T extends Task> implements HttpHandler {
 
