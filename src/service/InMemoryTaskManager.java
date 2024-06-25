@@ -1,7 +1,10 @@
 package service;
 
+
 import exceptions.IntersectionsOfTaskIntervalsException;
 import exceptions.NotFoundException;
+import exceptions.DataNotFoundException;
+import exceptions.EmptyStorageException;
 import model.Epic;
 import model.Status;
 import model.SubTask;
@@ -50,6 +53,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteTaskById(int id) {
+
         if (!tasksStorage.containsKey(id)) {
             throw new NotFoundException("Таска с Id не найдена");
         }else {
@@ -58,7 +62,6 @@ public class InMemoryTaskManager implements TaskManager {
             sortedStorage.remove(savedTask);
             history.remove(id);
         }
-
     }
 
 
@@ -118,6 +121,7 @@ public class InMemoryTaskManager implements TaskManager {
     public SubTask createSubTask(SubTask subTask) {
         Epic epic = epicsStorage.get(subTask.getEpicId());
         if (epic == null) {
+
             throw new NotFoundException("Не найден эпик");
         }
         int newId = generateId();
@@ -281,6 +285,7 @@ public class InMemoryTaskManager implements TaskManager {
                 .filter(task -> {
 
                     boolean isInterceptStart = isDateTimeBetween(checkingTask.getStartTime(), task)
+
                             || isDateTimeBetween(task.getStartTime(), checkingTask);
                     boolean isInterceptEnd = isDateTimeBetween(checkingTask.getEndTime(), task)
                             || isDateTimeBetween(task.getEndTime(), checkingTask);
