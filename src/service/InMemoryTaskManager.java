@@ -3,8 +3,6 @@ package service;
 
 import exceptions.IntersectionsOfTaskIntervalsException;
 import exceptions.NotFoundException;
-import exceptions.DataNotFoundException;
-import exceptions.EmptyStorageException;
 import model.Epic;
 import model.Status;
 import model.SubTask;
@@ -56,15 +54,13 @@ public class InMemoryTaskManager implements TaskManager {
 
         if (!tasksStorage.containsKey(id)) {
             throw new NotFoundException("Таска с Id не найдена");
-        }else {
+        } else {
             Task savedTask = tasksStorage.get(id);
             tasksStorage.remove(id);
             sortedStorage.remove(savedTask);
             history.remove(id);
         }
     }
-
-
 
 
     @Override
@@ -305,7 +301,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Task getTaskById(int id) throws NotFoundException {
         if (!tasksStorage.containsKey(id)) {
-            throw new NotFoundException("Задачи с ID: " + id +"не существует");
+            throw new NotFoundException("Задачи с ID: " + id + "не существует");
         }
         history.addHistory(tasksStorage.get(id));
         return tasksStorage.get(id);
@@ -315,7 +311,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Epic getEpicById(int id) {
         if (!epicsStorage.containsKey(id)) {
-            throw new NotFoundException("Эпика с ID: " + id +"не существует");
+            throw new NotFoundException("Эпика с ID: " + id + "не существует");
         }
         history.addHistory(epicsStorage.get(id));
         return epicsStorage.get(id);
@@ -324,7 +320,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public SubTask getSubTaskById(int id) {
         if (!subTasksStorage.containsKey(id)) {
-            throw new NotFoundException("Сабтаски с ID: " + id +"не существует");
+            throw new NotFoundException("Сабтаски с ID: " + id + "не существует");
         }
         history.addHistory(subTasksStorage.get(id));
         return subTasksStorage.get(id);
