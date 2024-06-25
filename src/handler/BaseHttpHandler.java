@@ -71,7 +71,7 @@ public abstract class BaseHttpHandler<T extends Task> implements HttpHandler {
     protected void handlePostCreate(HttpExchange exchange) throws IOException {
         T object = gson.fromJson(getStringFromBody(exchange), type);
         createHandler.accept(object);
-        sendText(exchange, "", 201);
+        sendText(exchange, gson.toJson(object), 201);
     }
 
     protected void handlePostUpdate(HttpExchange exchange) throws IOException {
@@ -115,7 +115,6 @@ public abstract class BaseHttpHandler<T extends Task> implements HttpHandler {
         h.close();
     }
 
-
     protected Endpoint getEndpoint(String requestPath, String requestMethod) {
         String[] pathParts = requestPath.split("/");
         if (pathParts[1].equals(firstPartOfPath)) {
@@ -155,6 +154,4 @@ public abstract class BaseHttpHandler<T extends Task> implements HttpHandler {
         InputStream inputStream = exchange.getRequestBody();
         return new String(inputStream.readAllBytes());
     }
-
-
 }

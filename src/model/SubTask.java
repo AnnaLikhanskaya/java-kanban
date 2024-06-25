@@ -1,6 +1,5 @@
 package model;
 
-
 import java.time.LocalDateTime;
 
 public class SubTask extends Task {

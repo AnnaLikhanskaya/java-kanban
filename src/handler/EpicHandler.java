@@ -40,7 +40,7 @@ public class EpicHandler extends BaseHttpHandler<Epic> {
             }
         } catch (ManagerSaveException e) {
             sendText(exchange, e.getMessage(), 406);
-        }  catch (NotFoundException e) {
+        } catch (NotFoundException e) {
             sendNotFound(exchange, e.getMessage());
         } catch (NumberFormatException e) {
             sendText(exchange, "Некорректный id", 400);

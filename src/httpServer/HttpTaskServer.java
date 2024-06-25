@@ -22,11 +22,7 @@ public class HttpTaskServer {
     public static Gson gson;
 
     public HttpTaskServer() {
-        gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
-                .registerTypeAdapter(Duration.class, new DurationAdapter())
-                .create();
-        taskManager = Managers.getDefault();
+        this(Managers.getDefault());
     }
 
     public HttpTaskServer(TaskManager manager) {

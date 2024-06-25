@@ -1,1 +1,2 @@
-
+id,type,name,description,duration,startTime,status,epic
+1,TASK,Изменённая подзадача-1,Дело близится к финалу,25,05:00 01.01.2024,IN_PROGRESS,
