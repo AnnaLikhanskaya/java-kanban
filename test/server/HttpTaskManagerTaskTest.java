@@ -61,7 +61,6 @@ public class HttpTaskManagerTaskTest {
 
         assertEquals(201, response.statusCode());
 
-
         List<Task> tasksFromManager = taskManager.getTaskAll();
 
         assertNotNull(tasksFromManager, "Задачи не возвращаются");
