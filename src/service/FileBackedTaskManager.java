@@ -49,6 +49,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
         Task updatingTask = new Task("Изенённая задача-1", " Мозги ушли погулять", 25,
                 LocalDateTime.of(2024, 1, 1, 6, 0));
+
         updatingTask.setId(task1.getId());
         taskManager.updateTask(updatingTask);
 
