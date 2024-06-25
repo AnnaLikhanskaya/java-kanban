@@ -19,7 +19,13 @@ abstract class TaskManagerTest<T extends TaskManager> {
     protected TaskManager taskManager;
 
     @BeforeEach
-    abstract void beforeEach();
+    void beforeEach() {
+        taskManager.deleteAllTask();
+        taskManager.deleteAllSubTask();
+        taskManager.deleteAllEpic();
+    }
+
+    ;
 
 
     @DisplayName("Статус NEW если нет подзадач")
@@ -37,15 +43,9 @@ abstract class TaskManagerTest<T extends TaskManager> {
         Epic epic = new Epic("Название", "Описание");
         int epicId = taskManager.createEpic(epic).getId();
         SubTask subTask1 = new SubTask("Название", "Описание",
-                1,
-                LocalDateTime.of(2020, 1, 2, 3, 4),
-                Status.NEW,
-                epicId);
+                1, LocalDateTime.now().plusHours(2), Status.NEW, epicId);
         SubTask subTask2 = new SubTask("Название", "Описание",
-                1,
-                LocalDateTime.of(2020, 1, 2, 3, 4),
-                Status.NEW,
-                epicId);
+                1, LocalDateTime.now().plusHours(3), Status.NEW, epicId);
         taskManager.createSubTask(subTask1);
         taskManager.createSubTask(subTask2);
         Status epicStatus = taskManager.getEpicById(epicId).getStatus();
@@ -58,15 +58,10 @@ abstract class TaskManagerTest<T extends TaskManager> {
         Epic epic = new Epic("Название", "Описание");
         int epicId = taskManager.createEpic(epic).getId();
         SubTask subTask1 = new SubTask("Название", "Описание",
-                1,
-                LocalDateTime.of(2020, 1, 2, 3, 4),
-                Status.DONE,
-                epicId);
+                1, LocalDateTime.now().plusHours(2), Status.DONE, epicId);
         SubTask subTask2 = new SubTask("Название", "Описание",
-                1,
-                LocalDateTime.of(2020, 1, 2, 3, 4),
-                Status.DONE,
-                epicId);
+                1, LocalDateTime.now().plusHours(5), Status.DONE, epicId);
+        ;
         taskManager.createSubTask(subTask1);
         taskManager.createSubTask(subTask2);
         Status epicStatus = taskManager.getEpicById(epicId).getStatus();
@@ -80,12 +75,12 @@ abstract class TaskManagerTest<T extends TaskManager> {
         int epicId = taskManager.createEpic(epic).getId();
         SubTask subTask1 = new SubTask("Название", "Описание",
                 1,
-                LocalDateTime.of(2020, 1, 2, 3, 4),
+                LocalDateTime.now().plusHours(2),
                 Status.IN_PROGRESS,
                 epicId);
         SubTask subTask2 = new SubTask("Название", "Описание",
                 1,
-                LocalDateTime.of(2020, 1, 2, 3, 4),
+                LocalDateTime.now().plusHours(5),
                 Status.IN_PROGRESS,
                 epicId);
         taskManager.createSubTask(subTask1);
@@ -101,12 +96,12 @@ abstract class TaskManagerTest<T extends TaskManager> {
         int epicId = taskManager.createEpic(epic).getId();
         SubTask subTask1 = new SubTask("Название", "Описание",
                 1,
-                LocalDateTime.of(2020, 1, 2, 3, 4),
+                LocalDateTime.now().plusHours(2),
                 Status.NEW,
                 epicId);
         SubTask subTask2 = new SubTask("Название", "Описание",
                 1,
-                LocalDateTime.of(2020, 1, 2, 3, 4),
+                LocalDateTime.now().plusHours(4),
                 Status.DONE,
                 epicId);
         taskManager.createSubTask(subTask1);
@@ -141,7 +136,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
         Epic epicWithSubtask = new Epic("Название", "Описание");
         int epicId = taskManager.createEpic(epicWithSubtask).getId();
         SubTask subtask = new SubTask("Название", "Описание", 1,
-                LocalDateTime.of(2020, 1, 2, 3, 4),
+                LocalDateTime.now().plusHours(2),
                 Status.NEW,
                 epicId);
         int newId = taskManager.createSubTask(subtask).getId();
@@ -158,11 +153,11 @@ abstract class TaskManagerTest<T extends TaskManager> {
         Epic epicWithSubtask = new Epic("Название", "Описание");
         int epicId = taskManager.createEpic(epicWithSubtask).getId();
         SubTask subtask2 = new SubTask("a", "b", 2,
-                LocalDateTime.of(2020, 1, 1, 1, 0), Status.NEW, epicId);
+                LocalDateTime.now().plusHours(2), Status.NEW, epicId);
         SubTask subtask3 = new SubTask("a", "b", 3,
-                LocalDateTime.of(2020, 1, 1, 3, 0), Status.IN_PROGRESS, epicId);
+                LocalDateTime.now().plusHours(4), Status.IN_PROGRESS, epicId);
         SubTask subtask1 = new SubTask("a", "b", 4,
-                LocalDateTime.of(2020, 1, 1, 2, 0), Status.NEW, epicId);
+                LocalDateTime.now().plusHours(6), Status.NEW, epicId);
         Task task = new Task("Test addNewTask", "Test addNewTask description",
                 1, LocalDateTime.of(2021, 1, 1, 0, 0), Status.NEW);
 

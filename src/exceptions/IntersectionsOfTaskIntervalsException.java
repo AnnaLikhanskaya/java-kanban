@@ -5,3 +5,4 @@ public class IntersectionsOfTaskIntervalsException extends RuntimeException {
         super(message);
     }
 }
+

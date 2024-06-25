@@ -1,6 +1,5 @@
 package model;
 
-
 import java.time.LocalDateTime;
 
 public class SubTask extends Task {
@@ -22,9 +21,12 @@ public class SubTask extends Task {
     @Override
     public String toString() {
         return "SubTask{" +
-                " name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +
+                ", duration=" + duration +
+                ", startTime=" + startTime +
+                ", epicId=" + epicId +
                 '}';
     }
 }

@@ -56,6 +56,4 @@ public interface TaskManager {
     List<Task> getHistory();
 
     ArrayList<Task> getPrioritizedTasks();
-
-
 }

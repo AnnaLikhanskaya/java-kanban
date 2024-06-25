@@ -25,35 +25,42 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     public static void main(String[] args) {
         TaskManager taskManager = FileBackedTaskManager.loadFromFile(new File("resources/Tasks.csv"));
-        LocalDateTime startTime = LocalDateTime.of(2024, 1, 1, 1, 0);
+//        LocalDateTime startTime = LocalDateTime.of(2024, 1, 1, 1, 0);
 
         Task task1 = taskManager.createTask(new Task("Новая задача",
-                "Попробовать справиться с финальным заданием", 10, startTime));
+                "Попробовать справиться с финальным заданием", 10,
+                LocalDateTime.of(2024, 1, 1, 1, 0)));
         Task task2 = taskManager.createTask(new Task("Новая задача-2",
-                "Прочитать ТЗ и уйти в дипрессию", 20, startTime));
+                "Прочитать ТЗ и уйти в дипрессию", 20,
+                LocalDateTime.of(2024, 1, 1, 2, 0)));
 
         Epic epic1 = taskManager.createEpic(new Epic("Новый эпик", "Смириться и начать думать"));
 
         SubTask subTask1 = taskManager.createSubTask(new SubTask("Новая подзадача-1", "Начать писать код", 10,
-                startTime, Status.NEW, epic1.getId()));
+                LocalDateTime.of(2024, 1, 1, 3, 0), Status.NEW, epic1.getId()));
         SubTask subTask2 = taskManager.createSubTask(new SubTask("Новая подзадача-2",
-                "Уже реализованы Task и SubTask", 30, startTime, Status.NEW, epic1.getId()));
+                "Уже реализованы Task и SubTask", 30,
+                LocalDateTime.of(2024, 1, 1, 4, 0), Status.NEW, epic1.getId()));
         Epic epic2 = taskManager.createEpic(new Epic("Новый эпик-2",
                 "Показалось что справилась"));
         SubTask subTask3 = taskManager.createSubTask(new SubTask("Новая подзадача-3", "Написала но снова показалось",
-                25, startTime, Status.NEW, epic1.getId()));
+                25,
+                LocalDateTime.of(2024, 1, 1, 5, 0), Status.NEW, epic1.getId()));
 
-        Task updatingTask = new Task("Изенённая задача-1", " Мозги ушли погулять", 25, startTime);
+        Task updatingTask = new Task("Изенённая задача-1", " Мозги ушли погулять", 25,
+                LocalDateTime.of(2024, 1, 1, 6, 0));
+
         updatingTask.setId(task1.getId());
         taskManager.updateTask(updatingTask);
 
         SubTask updatingSubTask1 = new SubTask("Изменённая подзадача-1", "Дело близится к финалу",
-                25, startTime, Status.IN_PROGRESS, subTask1.getEpicId());
+                25, LocalDateTime.of(2024, 1, 1, 7, 0), Status.IN_PROGRESS, subTask1.getEpicId());
         updatingSubTask1.setId(subTask1.getId());
         taskManager.updateSubTasks(updatingSubTask1);
 
         SubTask updatingSubTask3 = new SubTask("Изменённая подзадача-3", "Показалось что снова написала",
-                25, startTime, Status.DONE, subTask3.getEpicId());
+                25,
+                LocalDateTime.of(2024, 1, 1, 8, 0), Status.DONE, subTask3.getEpicId());
         updatingSubTask3.setId(subTask3.getId());
         taskManager.updateSubTasks(updatingSubTask3);
 

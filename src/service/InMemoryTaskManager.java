@@ -1,8 +1,8 @@
 package service;
 
-import exceptions.DataNotFoundException;
-import exceptions.EmptyStorageException;
+
 import exceptions.IntersectionsOfTaskIntervalsException;
+import exceptions.NotFoundException;
 import model.Epic;
 import model.Status;
 import model.SubTask;
@@ -33,6 +33,7 @@ public class InMemoryTaskManager implements TaskManager {
         return ++identifier;
     }
 
+
     @Override
     public List<Task> getTaskAll() {
         return new ArrayList<>(tasksStorage.values());
@@ -50,11 +51,17 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteTaskById(int id) {
-        Task savedTask = tasksStorage.get(id);
-        tasksStorage.remove(id);
-        sortedStorage.remove(savedTask);
-        history.remove(id);
+
+        if (!tasksStorage.containsKey(id)) {
+            throw new NotFoundException("Таска с Id не найдена");
+        } else {
+            Task savedTask = tasksStorage.get(id);
+            tasksStorage.remove(id);
+            sortedStorage.remove(savedTask);
+            history.remove(id);
+        }
     }
+
 
     @Override
     public void deleteEpicById(int id) {
@@ -74,7 +81,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void deleteSubTaskById(int id) {
         if (!subTasksStorage.containsKey(id)) {
-            throw new DataNotFoundException("Сабтаска не найдена");
+            throw new NotFoundException("Сабтаска не найдена");
         }
         SubTask subTask = subTasksStorage.get(id);
         Epic epic = epicsStorage.get(subTask.getEpicId());
@@ -110,7 +117,8 @@ public class InMemoryTaskManager implements TaskManager {
     public SubTask createSubTask(SubTask subTask) {
         Epic epic = epicsStorage.get(subTask.getEpicId());
         if (epic == null) {
-            throw new DataNotFoundException("Не найден эпик");
+
+            throw new NotFoundException("Не найден эпик");
         }
         int newId = generateId();
         checkIntersections(subTask);
@@ -128,7 +136,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateTask(Task task) {
         if (!tasksStorage.containsKey(task.getId())) {
-            throw new DataNotFoundException("Таска с Id " + task.getId() + " не найдена");
+            throw new NotFoundException("Таска с Id " + task.getId() + " не найдена");
         }
         final Task savedTask = tasksStorage.get(task.getId());
         sortedStorage.remove(savedTask);
@@ -194,9 +202,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteAllEpic() {
-        if (epicsStorage.isEmpty()) {
-            throw new EmptyStorageException("Хранилище эпиков пустое");
-        }
         epicsStorage.values().stream()
                 .peek(epic -> history.remove(epic.getId()))
                 .close();
@@ -271,15 +276,16 @@ public class InMemoryTaskManager implements TaskManager {
         return new ArrayList<>(sortedStorage);
     }
 
-    protected void checkIntersections(Task checkingTask) {
+    protected void checkIntersections(Task checkingTask) throws IntersectionsOfTaskIntervalsException {
         long intersectionsCount = sortedStorage.stream()
                 .filter(task -> {
 
                     boolean isInterceptStart = isDateTimeBetween(checkingTask.getStartTime(), task)
-                            && isDateTimeBetween(task.getStartTime(), checkingTask);
+
+                            || isDateTimeBetween(task.getStartTime(), checkingTask);
                     boolean isInterceptEnd = isDateTimeBetween(checkingTask.getEndTime(), task)
-                            && isDateTimeBetween(task.getEndTime(), checkingTask);
-                    return isInterceptEnd && isInterceptStart;
+                            || isDateTimeBetween(task.getEndTime(), checkingTask);
+                    return isInterceptEnd || isInterceptStart;
                 }).count();
         if (intersectionsCount > 0) {
             throw new IntersectionsOfTaskIntervalsException("Интервалы задач не могут пересекаться");
@@ -288,37 +294,40 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     private boolean isDateTimeBetween(LocalDateTime checking, Task task) {
-        return checking.isAfter(task.getStartTime()) && checking.isBefore(task.getEndTime());
+        return (checking.isAfter(task.getStartTime()) && checking.isBefore(task.getEndTime())) ||
+                checking.equals(task.getStartTime()) || checking.equals(task.getEndTime());
     }
 
     @Override
-    public Task getTaskById(int id) {
-        if (tasksStorage.containsKey(id)) {
-            history.addHistory(tasksStorage.get(id));
+    public Task getTaskById(int id) throws NotFoundException {
+        if (!tasksStorage.containsKey(id)) {
+            throw new NotFoundException("Задачи с ID: " + id + "не существует");
         }
+        history.addHistory(tasksStorage.get(id));
         return tasksStorage.get(id);
     }
 
+
     @Override
     public Epic getEpicById(int id) {
-        if (epicsStorage.containsKey(id)) {
-            history.addHistory(epicsStorage.get(id));
+        if (!epicsStorage.containsKey(id)) {
+            throw new NotFoundException("Эпика с ID: " + id + "не существует");
         }
+        history.addHistory(epicsStorage.get(id));
         return epicsStorage.get(id);
     }
 
     @Override
     public SubTask getSubTaskById(int id) {
-        if (subTasksStorage.containsKey(id)) {
-            history.addHistory(subTasksStorage.get(id));
+        if (!subTasksStorage.containsKey(id)) {
+            throw new NotFoundException("Сабтаски с ID: " + id + "не существует");
         }
+        history.addHistory(subTasksStorage.get(id));
         return subTasksStorage.get(id);
     }
 
     @Override
     public List<Task> getHistory() {
         return history.getHistory();
-
     }
-
 }
