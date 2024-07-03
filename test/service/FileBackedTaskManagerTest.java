@@ -23,6 +23,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
 
 
     @BeforeEach
+    @Override
     void beforeEach() {
         try {
             file = File.createTempFile("tests", ".csv");
@@ -30,6 +31,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
         } catch (IOException e) {
             throw new RuntimeException("Не удалось прочитать файл");
         }
+        super.beforeEach();
     }
 
     @DisplayName("Должен создать Task из файла")
@@ -171,11 +173,11 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
     public void shouldDeleteAllTaskFromFileTest() throws IOException {
         taskManager.createTask(new Task("Новая задача", "Попробовать справиться с финальным заданием",
                 10,
-                LocalDateTime.of(2022, 11, 10, 9, 8),
+                LocalDateTime.now().plusHours(2),
                 Status.NEW));
         taskManager.createTask(new Task("Новая задача - 2", "Попробовать справиться с финальным заданием - 2",
                 10,
-                LocalDateTime.of(2022, 11, 10, 9, 8),
+                LocalDateTime.now().plusHours(5),
                 Status.NEW));
         taskManager.deleteAllTask();
         String fileContents = Files.readString(Path.of(file.getPath()), StandardCharsets.UTF_8);
@@ -205,11 +207,11 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
         int epicId = taskManager.createEpic(new Epic("Новый эпик", "Смириться и начать думать")).getId();
 
         taskManager.createSubTask(new SubTask("Новая подзадача - 1", "Начать писать код", 1,
-                LocalDateTime.of(2020, 1, 2, 3, 4),
+                LocalDateTime.now().plusHours(2),
                 Status.NEW,
                 epicId));
         taskManager.createSubTask(new SubTask("Новая подзадача - 2", "Начать писать код - 2", 1,
-                LocalDateTime.of(2020, 1, 2, 3, 4),
+                LocalDateTime.now().plusHours(3),
                 Status.NEW,
                 epicId));
         taskManager.deleteAllSubTask();
